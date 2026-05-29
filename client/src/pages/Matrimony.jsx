@@ -126,8 +126,8 @@ const Matrimony = () => {
   }
 
   return (
-    <div className="container" style={{ padding: '40px 24px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', marginBottom: '10px' }}>
+    <div className="container page-container">
+      <div className="page-header-row">
         <div>
           <h1 className="section-title" style={{ textAlign: 'left', margin: 0 }}>{t('matrimony')} Rista Portal</h1>
           <p className="section-subtitle" style={{ textAlign: 'left', margin: '8px 0 0 0' }}>
@@ -141,7 +141,7 @@ const Matrimony = () => {
 
       {/* Filter panel */}
       <motion.div className="glass-card" style={{ padding: '24px', marginBottom: '30px' }} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', alignItems: 'end' }}>
+        <div className="filter-panel-grid">
           
           <div className="form-group" style={{ margin: 0 }}>
             <label className="form-label">Seeking Gender</label>
@@ -212,7 +212,7 @@ const Matrimony = () => {
                   </div>
                 </div>
 
-                <div style={{ fontSize: '0.85rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', backgroundColor: 'var(--bg-primary)', padding: '12px', borderRadius: '6px' }}>
+                <div className="matrimony-details-grid" style={{ fontSize: '0.85rem', backgroundColor: 'var(--bg-primary)', padding: '12px', borderRadius: '6px' }}>
                   <div><strong>Gotra:</strong> {p.gotraSelf}</div>
                   <div><strong>Mother Gotra:</strong> {p.gotraMother}</div>
                   <div><strong>Education:</strong> {p.education || 'N/A'}</div>
@@ -248,9 +248,9 @@ const Matrimony = () => {
 
       {/* Profile Detail Modal */}
       {selectedProfile && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-          <div className="glass-card animate-fade-up" style={{ position: 'relative', width: '100%', maxWidth: '500px', padding: '30px', background: 'var(--bg-secondary)', borderTop: '8px solid var(--accent)', maxHeight: '90vh', overflowY: 'auto' }}>
-            <button onClick={() => setSelectedProfile(null)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}>
+        <div className="modal-overlay">
+          <div className="glass-card animate-fade-up modal-card" style={{ maxWidth: '500px', borderTop: '8px solid var(--accent)' }}>
+            <button onClick={() => setSelectedProfile(null)} className="modal-close-btn">
               <X size={24} />
             </button>
 
@@ -267,7 +267,7 @@ const Matrimony = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '0.95rem' }}>
-              <div className="glass-card" style={{ padding: '16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', background: 'var(--bg-primary)' }}>
+              <div className="glass-card matrimony-details-grid" style={{ padding: '16px', background: 'var(--bg-primary)' }}>
                 <div><strong>Age:</strong> {calculateAge(selectedProfile.dob)} Yrs</div>
                 <div><strong>Height:</strong> {selectedProfile.height || 'N/A'}</div>
                 <div><strong>Self Gotra:</strong> {selectedProfile.gotraSelf}</div>

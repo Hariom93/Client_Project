@@ -67,7 +67,7 @@ const Members = () => {
   };
 
   return (
-    <div className="container" style={{ padding: '40px 24px' }}>
+    <div className="container page-container">
       <h1 className="section-title">{t('members')}</h1>
       <p className="section-subtitle">
         {language === 'en' 
@@ -83,7 +83,7 @@ const Members = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', alignItems: 'end' }}>
+        <div className="filter-panel-grid">
           
           <div className="form-group" style={{ margin: 0 }}>
             <label className="form-label">{language === 'en' ? 'Search Name' : 'नाम खोजें'}</label>

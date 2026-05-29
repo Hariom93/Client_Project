@@ -13,7 +13,7 @@ const About = () => {
   ];
 
   return (
-    <div className="container animate-fade-up" style={{ padding: '40px 24px' }}>
+    <div className="container animate-fade-up page-container">
       <h1 className="section-title">{t('about')}</h1>
       <p className="section-subtitle">
         {language === 'en' 
@@ -69,7 +69,7 @@ const About = () => {
 
       {/* President Welcome Card */}
       <div className="glass-card" style={{ padding: '40px', marginBottom: '60px', borderLeft: '6px solid var(--accent)' }}>
-        <div style={{ display: 'flex', gap: '30px', flexDirection: window.innerWidth < 768 ? 'column' : 'row', alignItems: 'center' }}>
+        <div className="president-card-layout">
           <img 
             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" 
             alt="President" 

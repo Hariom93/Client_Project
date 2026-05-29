@@ -38,7 +38,7 @@ const News = () => {
   ];
 
   return (
-    <div className="container animate-fade-up" style={{ padding: '40px 24px' }}>
+    <div className="container animate-fade-up page-container">
       <h1 className="section-title">{t('news')}</h1>
       <p className="section-subtitle">
         {language === 'en'
@@ -47,7 +47,7 @@ const News = () => {
       </p>
 
       {/* Categories filter tabs */}
-      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '40px' }}>
+      <div className="category-filter-row" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '40px' }}>
         {categories.map((cat) => (
           <button
             key={cat.value}
@@ -76,14 +76,14 @@ const News = () => {
             <div
               key={news._id}
               className={`glass-card ${news.pinned ? 'pinned-news-card' : ''}`}
-              style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: window.innerWidth < 768 ? 'column' : 'row' }}
+              style={{ padding: 0, overflow: 'hidden' }}
             >
+              <div className="news-article-layout">
               {news.image && (
-                <div style={{ width: window.innerWidth < 768 ? '100%' : '350px', height: '240px', flexShrink: 0 }}>
+                <div className="news-article-image">
                   <img
                     src={news.image}
                     alt={news.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
               )}
@@ -111,6 +111,7 @@ const News = () => {
                     <span>Post by: {news.author?.name || 'Trust Board'}</span>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           ))}
