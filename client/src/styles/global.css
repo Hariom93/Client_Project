@@ -462,6 +462,8 @@ textarea.form-control {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+  max-width: 100% !important;
+  padding: 0 40px !important;
 }
 
 .brand-logo {
@@ -709,28 +711,36 @@ textarea.form-control {
 /* Navbar Responsive overrides */
 @media (max-width: 1360px) {
   .brand-hindi {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
   }
 
   .brand-english {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
   }
 
   .desktop-nav {
-    gap: 10px;
+    gap: 6px;
   }
 
   .nav-link {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
+    padding: 8px 0.5px;
   }
 
   .auth-action-buttons .btn-sm {
-    padding: 7px 12px;
-    font-size: 0.8rem;
+    padding: 6px 10px;
+    font-size: 0.76rem;
+  }
+
+  .navbar-toolbar {
+    gap: 4px;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
+  .navbar-container {
+    padding: 0 20px !important;
+  }
   .desktop-nav {
     display: none;
   }
@@ -1972,7 +1982,7 @@ textarea.form-control {
 }
 
 /* ---------- Tablet landscape fix for mobile nav ---------- */
-@media (max-width: 1200px) and (orientation: landscape) {
+@media (max-width: 1300px) and (orientation: landscape) {
   .mobile-nav-drawer {
     max-height: calc(100vh - 74px);
   }
