@@ -27,8 +27,12 @@ export const apiCall = async (endpoint, options = {}) => {
     }
   };
 
+  // Supports absolute URL in production (e.g. Vercel) and relative path in local dev
+  const baseUrl = import.meta.env.VITE_API_URL || '';
+  const url = `${baseUrl}${endpoint}`;
+
   try {
-    const response = await fetch(endpoint, config);
+    const response = await fetch(url, config);
     const data = await response.json();
 
     if (!response.ok) {
@@ -37,7 +41,8 @@ export const apiCall = async (endpoint, options = {}) => {
 
     return data;
   } catch (error) {
-    console.error(`API Client Error: ${endpoint}`, error.message);
+    console.error(`API Client Error: ${url}`, error.message);
     throw error;
   }
 };
+
