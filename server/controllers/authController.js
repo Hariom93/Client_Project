@@ -6,7 +6,7 @@ const { OAuth2Client } = require('google-auth-library');
 const generateToken = (id, role) => {
   return jwt.sign(
     { id, role },
-    process.env.JWT_SECRET || 'supersecretkeygujjar123',
+    process.env.JWT_SECRET,
     { expiresIn: '30d' }
   );
 };

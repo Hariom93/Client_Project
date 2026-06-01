@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import PageTransition from './components/PageTransition';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -22,6 +23,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
+import NotFound from './pages/NotFound';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -63,6 +65,9 @@ const AnimatedRoutes = () => {
             </ProtectedRoute>
           }
         />
+
+        {/* 404 Catch-all route */}
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
@@ -72,6 +77,7 @@ const App = () => {
   const { toast } = useAuth();
 
   return (
+    <ErrorBoundary>
     <BrowserRouter>
       <div className="app-layout">
         <Navbar />
@@ -89,6 +95,7 @@ const App = () => {
         <Footer />
       </div>
     </BrowserRouter>
+    </ErrorBoundary>
   );
 };
 

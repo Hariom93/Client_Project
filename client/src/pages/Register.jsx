@@ -5,7 +5,7 @@ import { UserPlus, Mail, Lock, Phone, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Register = () => {
-  const { register } = useAuth();
+  const { register, showToast } = useAuth();
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -16,15 +16,53 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email || !password || !phone) return;
+    
+    // Trim values
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPhone = phone.trim();
+
+    // 1. Check empty
+    if (!trimmedName || !trimmedEmail || !password || !trimmedPhone) {
+      showToast('Please fill in all fields.', 'error');
+      return;
+    }
+
+    // 2. Name validation
+    if (trimmedName.length < 2) {
+      showToast('Name must be at least 2 characters long.', 'error');
+      return;
+    }
+
+    // 3. Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    // 4. Phone validation (10 digits Indian format)
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(trimmedPhone)) {
+      showToast('Please enter a valid 10-digit mobile number.', 'error');
+      return;
+    }
+
+    // 5. Password validation
+    if (password.length < 6) {
+      showToast('Password must be at least 6 characters long.', 'error');
+      return;
+    }
 
     setLoading(true);
     try {
-      const data = await register(name, email, password, phone);
+      const data = await register(trimmedName, trimmedEmail, password, trimmedPhone);
       if (data) {
+        showToast('Registration successful!', 'success');
         navigate('/profile');
       }
     } catch (err) {
+      showToast(err.message || 'Registration failed. Please try again.', 'error');
       console.log('Registration failed:', err.message);
     } finally {
       setLoading(false);

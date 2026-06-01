@@ -8,6 +8,15 @@ const path = require('path');
 const connectDB = require('./config/db');
 const seedData = require('./config/seed');
 
+// Validate required environment variables on startup
+const requiredEnvVars = ['JWT_SECRET', 'MONGODB_URI'];
+const missingVars = requiredEnvVars.filter((key) => !process.env[key]);
+if (missingVars.length > 0) {
+  console.error(`❌ Missing required environment variables: ${missingVars.join(', ')}`);
+  console.error('Please check your server/.env file.');
+  process.exit(1);
+}
+
 // Initialize app
 const app = express();
 
@@ -15,7 +24,25 @@ const app = express();
 app.use(helmet({
   crossOriginResourcePolicy: false // Allows loading local uploaded images in the client
 }));
-app.use(cors());
+
+// CORS — restrict to known origins only
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://client-project-nine-rho.vercel.app'
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
