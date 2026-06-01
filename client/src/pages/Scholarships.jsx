@@ -181,11 +181,11 @@ const Scholarships = () => {
                   <FileText size={22} /> My Submissions
                 </h2>
                 
-                {myApplications.length === 0 ? (
+                {(!myApplications || myApplications.length === 0) ? (
                   <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>You have not submitted any scholarship forms yet.</p>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    {myApplications.map((app) => (
+                    {(myApplications || []).map((app) => (
                       <div key={app._id} style={{ border: '1px solid var(--border)', borderRadius: '8px', padding: '16px', backgroundColor: 'var(--bg-primary)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                           <strong>{app.courseName} ({app.percentage}%)</strong>
@@ -231,7 +231,7 @@ const Scholarships = () => {
             <div className="flex-center" style={{ padding: '30px' }}>
               <div className="spinner"></div>
             </div>
-          ) : meritList.length === 0 ? (
+          ) : (!meritList || meritList.length === 0) ? (
             <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', padding: '20px' }}>
               No scholarships have been approved/ranked for the current cycle yet.
             </p>
@@ -247,7 +247,7 @@ const Scholarships = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {meritList.map((student, index) => (
+                  {(meritList || []).map((student, index) => (
                     <tr key={student._id} style={{ borderBottom: '1px solid var(--border)' }}>
                       <td style={{ padding: '12px 8px', fontWeight: '700', color: index === 0 ? 'var(--warning)' : 'var(--text-secondary)' }}>
                         #{index + 1}

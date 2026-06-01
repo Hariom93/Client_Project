@@ -95,7 +95,8 @@ export const LanguageProvider = ({ children }) => {
   });
 
   const t = (key) => {
-    return translations[language][key] || key;
+    const lang = translations[language] ? language : 'en';
+    return translations[lang][key] || key;
   };
 
   const toggleLanguage = () => {
