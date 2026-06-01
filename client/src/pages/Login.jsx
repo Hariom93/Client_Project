@@ -5,7 +5,7 @@ import { LogIn, Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Login = () => {
-  const { login, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle, showToast } = useAuth();
   const navigate = useNavigate();
   const googleBtnRef = useRef(null);
 
@@ -66,12 +66,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) return;
+    
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !password) {
+      showToast('Please enter both email and password.', 'error');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    if (password.length < 6) {
+      showToast('Password must be at least 6 characters long.', 'error');
+      return;
+    }
 
     setLoading(true);
     try {
-      const data = await login(email, password);
+      const data = await login(trimmedEmail, password);
       if (data) {
+        showToast('Login successful!', 'success');
         if (data.role === 'admin') {
           navigate('/admin');
         } else {
@@ -79,6 +96,7 @@ const Login = () => {
         }
       }
     } catch (err) {
+      showToast(err.message || 'Login failed. Please check your credentials.', 'error');
       console.log('Login failed:', err.message);
     } finally {
       setLoading(false);
